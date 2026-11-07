@@ -20,20 +20,20 @@ async function mediaCall(path,body) {
  const target = frame.contentWindow; if(!target) throw new Error('Requests connection is unavailable');
  const identifier = crypto.randomUUID();
  return new Promise((resolve,reject)=>{
-  const timer = setTimeout(()=>{window.removeEventListener('message',receive); reject(new Error('Requests did not return a confirmed result. Check recent requests before retrying.'));},60000);
+  const timer = setTimeout(()=>{window.removeEventListener('message',receive); reject(new Error('Requests didn\'t answer. Check recent requests before trying again.'));},60000);
   /** @param {MessageEvent<MediaJson>} event @returns {void} */
   function receive(event) {
    if(event.origin !== 'https://requests.fatpigeon.ca' || event.source !== target) return;
    const result = mediaFields(event.data); if(result.id !== identifier) return;
    clearTimeout(timer); window.removeEventListener('message',receive);
    if(result.signInRequired === true) {
-    if(mediaElement('conversation').querySelector('.pending')) {reject(new Error('Wait for Crumbs to finish, then search again to connect Requests.')); return;}
+    if(mediaElement('conversation').querySelector('.pending')) {reject(new Error('Wait until Crumbs finishes, then search again.')); return;}
     const composer = mediaElement('message'); if(!(composer instanceof HTMLTextAreaElement)) throw new TypeError('Crumbs composer must be a textarea');
     const query = path === 'search' ? mediaText(body.query) : sessionStorage.getItem('crumbs-last-media-query');
-    if(!query) {reject(new Error('Search for the title again to connect Requests using your Coop sign-in.')); return;}
+    if(!query) {reject(new Error('Search again so Requests can use your Coop sign-in.')); return;}
     sessionStorage.setItem('crumbs-sso-handoff',JSON.stringify({identity,query,savedAt:Date.now(),messages:conversationMessages(),conversationId:mediaElement('chat-form').dataset.conversationId,draft:composer.value}));
     const destination = new URL('https://requests.fatpigeon.ca/coop/'); destination.searchParams.set('coop_return',location.pathname === '/crumbs/' ? 'chat' : 'home'); destination.searchParams.set('expected',identity);
-    location.assign(destination.href); reject(new Error('Connecting Requests using your existing Coop sign-in…')); return;
+    location.assign(destination.href); reject(new Error('Connecting Requests with your Coop sign-in...')); return;
    }
    if(typeof result.error === 'string') {reject(new Error(result.error)); return;}
    resolve(mediaFields(result.result));
@@ -55,13 +55,13 @@ function mediaCard(heading) {
 /** @param {HTMLElement} card @param {Error} error @returns {void} */
 function mediaFailure(card,error) {
  const text = mediaNode('p',error.message); text.setAttribute('role','alert'); text.className = 'media-error'; card.append(text);
- const signIn = document.createElement('a'); signIn.href = 'https://requests.fatpigeon.ca/coop/'; signIn.target = '_blank'; signIn.rel = 'noopener'; signIn.textContent = 'Open Requests to sign in or check status ↗'; card.append(signIn);
- card.append(mediaNode('p','After signing in to Requests, return here and search again. Your Coop and Requests accounts must be linked to each other.'));
+ const signIn = document.createElement('a'); signIn.href = 'https://requests.fatpigeon.ca/coop/'; signIn.target = '_blank'; signIn.rel = 'noopener'; signIn.textContent = 'Open Requests to sign in or check status'; card.append(signIn);
+ card.append(mediaNode('p','After you sign in to Requests, come back and search again. The Coop account and the Requests account have to be linked.'));
 }
 /** @param {number} id @param {'movie'|'tv'} type @returns {Promise<void>} */
 async function mediaReviewInChat(id,type) {
  const card = mediaCard('Review your request'); card.classList.add('pending-media');
- const status = mediaNode('p','Checking your linked account and the latest availability…'); status.setAttribute('role','status'); card.append(status);
+ const status = mediaNode('p','Checking the account, and whether this is available...'); status.setAttribute('role','status'); card.append(status);
  try {
   const result = await mediaCall('review',{id,type}); const title = mediaFields(result.title); const seasons = mediaItems(result.seasons);
   const name = mediaText(title.title), year = mediaText(title.year); const confirmation = mediaText(result.confirmation);
@@ -85,28 +85,28 @@ async function mediaReviewInChat(id,type) {
   confirm.addEventListener('click',async()=>{
    const chosen = Array.from(options.querySelectorAll('input:checked')).map(node=>{if(!(node instanceof HTMLInputElement)) throw new TypeError('Invalid season control'); return Number(node.value);});
    if(type === 'tv' && !chosen.length) { feedback.textContent = 'Choose at least one season first.'; return; }
-   confirm.disabled = true; cancel.disabled = true; card.classList.add('pending-media'); feedback.textContent = 'Sending your confirmed request…';
+   confirm.disabled = true; cancel.disabled = true; card.classList.add('pending-media'); feedback.textContent = 'Sending the request...';
    try {
     const submitted = await mediaCall('confirm',{confirmation,seasons:chosen}); const requestId = mediaNumber(submitted.id), requestStatus = mediaNumber(submitted.status);
     const requestState = ['','Waiting for approval.','Approved · on its way.','Declined.','Needs attention.','Ready to watch.'][requestStatus];
     feedback.textContent = `Request #${requestId} for ${mediaText(submitted.title)} sent as ${mediaText(submitted.account)}. ${requestState ?? `Seerr status ${requestStatus}.`}`;
     confirm.textContent = 'Request sent'; options.disabled = true;
-   } catch(error) { if(!(error instanceof Error)) throw error; feedback.textContent = error.message; confirm.textContent = 'Check status before retrying'; }
+   } catch(error) { if(!(error instanceof Error)) throw error; feedback.textContent = error.message; confirm.textContent = 'Check status before trying again'; }
    finally { card.classList.remove('pending-media'); cancel.disabled = false; cancel.textContent = 'Close'; }
   });
   actions.append(confirm,cancel); card.append(mediaNode('strong',`Confirm: ${name}${year ? ` (${year})` : ''}`),actions,feedback);
-  const history = document.createElement('a'); history.href = 'https://requests.fatpigeon.ca/coop/#history-title'; history.target = '_blank'; history.rel = 'noopener'; history.textContent = 'Check my recent requests ↗'; card.append(history);
- } catch(error) { if(!(error instanceof Error)) throw error; status.textContent = 'This request cannot be confirmed.'; mediaFailure(card,error); }
+  const history = document.createElement('a'); history.href = 'https://requests.fatpigeon.ca/coop/#history-title'; history.target = '_blank'; history.rel = 'noopener'; history.textContent = 'Check my recent requests'; card.append(history);
+ } catch(error) { if(!(error instanceof Error)) throw error; status.textContent = 'This one can\'t be confirmed.'; mediaFailure(card,error); }
  finally { card.classList.remove('pending-media'); card.focus(); }
 }
 /** @param {string} query @returns {Promise<void>} */
 async function mediaSearchInChat(query) {
  sessionStorage.setItem('crumbs-last-media-query',query);
  const card = mediaCard(`Movies & TV: ${query}`); card.classList.add('pending-media');
- const status = mediaNode('p','Crumbs is checking the shelves…'); status.setAttribute('role','status'); card.append(status);
+ const status = mediaNode('p','Looking that up...'); status.setAttribute('role','status'); card.append(status);
  try {
   const result = await mediaCall('search',{query}); const titles = mediaItems(result.titles);
-  status.textContent = titles.length ? 'Choose the right title, then review and confirm. Nothing has been requested yet.' : 'No matching movies or shows. Try a different title.';
+  status.textContent = titles.length ? 'Pick the right one. Nothing has been requested yet.' : 'No matching movies or shows. Try a different title.';
   for(const raw of titles) {
    const title = mediaFields(raw); const id = mediaNumber(title.id), type = mediaText(title.type), name = mediaText(title.title), year = mediaText(title.year);
    if(type !== 'movie' && type !== 'tv') throw new TypeError('Invalid movie or TV result');
@@ -114,7 +114,7 @@ async function mediaSearchInChat(query) {
    row.append(mediaNode('strong',`${name}${year ? ` (${year})` : ''}`),mediaNode('p',`${type === 'movie' ? 'Movie' : 'TV show'} · ${mediaAvailability(mediaNumber(title.status))}`));
    const button = document.createElement('button'); button.type = 'button'; button.textContent = 'Choose title'; button.dataset.mediaTitle = `${type}-${id}`; button.addEventListener('click',()=>{void mediaReviewInChat(id,type);}); row.append(button); card.append(row);
   }
- } catch(error) { if(!(error instanceof Error)) throw error; status.textContent = 'Title search could not finish.'; mediaFailure(card,error); }
+ } catch(error) { if(!(error instanceof Error)) throw error; status.textContent = 'Title search didn\'t finish.'; mediaFailure(card,error); }
  finally { card.classList.remove('pending-media'); card.focus(); }
 }
 /** @param {string} content @returns {string|null} */
@@ -126,13 +126,13 @@ function mediaSearchCommand(content) {
 const mediaSearchButton = document.createElement('button'); mediaSearchButton.type = 'button'; mediaSearchButton.id = 'chat-find-media'; mediaSearchButton.textContent = 'Find movie or TV'; mediaSearchButton.className = 'quiet';
 mediaSearchButton.addEventListener('click',()=>{
  const composer = mediaElement('message'); if(!(composer instanceof HTMLTextAreaElement)) throw new TypeError('Crumbs composer must be a textarea');
- const query = composer.value.trim(); if(!query || query.length > 150) { composer.focus(); composer.setCustomValidity('Enter a movie or TV title of 1–150 characters, then choose Find movie or TV.'); composer.reportValidity(); composer.addEventListener('input',()=>composer.setCustomValidity(''),{once:true}); return; }
+ const query = composer.value.trim(); if(!query || query.length > 150) { composer.focus(); composer.setCustomValidity('Type a movie or show name first. 150 characters max.'); composer.reportValidity(); composer.addEventListener('input',()=>composer.setCustomValidity(''),{once:true}); return; }
  composer.value = ''; void mediaSearchInChat(query);
 });
 mediaElement('chat-form').append(mediaSearchButton);
-const mediaFrame = document.createElement('iframe'); mediaFrame.id = 'crumbs-requests-connection'; mediaFrame.title = 'Private Requests connection'; mediaFrame.hidden = true;
+const mediaFrame = document.createElement('iframe'); mediaFrame.id = 'crumbs-requests-connection'; mediaFrame.title = 'Requests connection'; mediaFrame.hidden = true;
 const mediaBridgeReady = new Promise((resolve,reject)=>{
- const timer = setTimeout(()=>{window.removeEventListener('message',ready); reject(new Error('The Requests connection did not load. Reload the page to reconnect.'));},30000);
+ const timer = setTimeout(()=>{window.removeEventListener('message',ready); reject(new Error('Requests didn\'t load. Reload the page.'));},30000);
  /** @param {MessageEvent<MediaJson>} event @returns {void} */
  function ready(event) {
   if(event.origin !== 'https://requests.fatpigeon.ca' || event.source !== mediaFrame.contentWindow || mediaFields(event.data).ready !== 'crumbs-requests') return;
@@ -151,14 +151,14 @@ window.addEventListener('DOMContentLoaded',async()=>{
   const response = await fetch('/crumbs/api/identity',{cache:'no-store',signal:AbortSignal.timeout(15000)});
   if(!response.ok) throw new Error(`Coop identity check returned HTTP ${response.status}`);
   const identity = mediaText(mediaFields(await response.json()).identity);
-  if(handoff.identity !== identity || Date.now()-mediaNumber(handoff.savedAt) > 600000) throw new Error('The sign-in handoff expired or the Coop account changed. Start a fresh conversation.');
-  const conversationId = mediaText(handoff.conversationId); if(!/^[a-f0-9-]{36}$/.test(conversationId)) throw new Error('The saved conversation identifier is invalid.');
+  if(handoff.identity !== identity || Date.now()-mediaNumber(handoff.savedAt) > 600000) throw new Error('That sign-in handoff expired, or the Coop account changed. Start a new chat.');
+  const conversationId = mediaText(handoff.conversationId); if(!/^[a-f0-9-]{36}$/.test(conversationId)) throw new Error('The saved chat id is no good.');
   const messages = mediaItems(handoff.messages).map(raw=>{
    const message = mediaFields(raw); const role = mediaText(message.role), content = mediaText(message.content);
-   if((role !== 'user' && role !== 'assistant') || content.length > 12000) throw new Error('The saved conversation contains an invalid message.');
+   if((role !== 'user' && role !== 'assistant') || content.length > 12000) throw new Error('The saved chat has a message I can\'t use.');
    return {role,content};
   });
-  if(messages.length > 24 || messages.reduce((sum,message)=>sum+message.content.length,0)>24000) throw new Error('The saved conversation exceeds the chat limit.');
+  if(messages.length > 24 || messages.reduce((sum,message)=>sum+message.content.length,0)>24000) throw new Error('The saved chat is too long.');
   mediaElement('chat-form').dataset.conversationId = conversationId;
   for(const message of messages) mediaElement('conversation').append(messageElement(message.role,message.content));
   const composer = mediaElement('message'); if(!(composer instanceof HTMLTextAreaElement)) throw new TypeError('Crumbs composer must be a textarea'); composer.value = mediaText(handoff.draft);

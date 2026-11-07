@@ -12,7 +12,7 @@ function crumbsTab(name) {
 function crumbsDraft(message) {
  crumbsTab('chat'); const input = crumbsElement('message');
  if(!(input instanceof HTMLTextAreaElement)) throw new TypeError('Crumbs message must be a text area');
- if(input.value.trim()) { crumbsElement('crumbs-draft-status').textContent = 'Your unsent message is still here. Send it or clear it before choosing a suggested question.'; input.focus(); return; }
+ if(input.value.trim()) { crumbsElement('crumbs-draft-status').textContent = 'You\'ve still got an unsent message. Send it or clear it first.'; input.focus(); return; }
  crumbsElement('crumbs-draft-status').textContent = '';
  input.value = message; input.focus();
 }
@@ -31,7 +31,7 @@ function crumbsFindApps() {
   link.append(title,name,action); return link;
  });
  crumbsElement('crumbs-app-results').replaceChildren(...rows);
- crumbsElement('crumbs-app-count').textContent = `${matches.length} of ${familyApps.length} apps · opens in a new tab`;
+ crumbsElement('crumbs-app-count').textContent = `${matches.length} of ${familyApps.length} apps. Opens in a new tab.`;
  crumbsElement('crumbs-app-empty').hidden = matches.length !== 0;
 }
 for(const [index,name] of ['chat','media','apps','help'].entries()) {
@@ -43,9 +43,9 @@ for(const [index,name] of ['chat','media','apps','help'].entries()) {
   const nextName = ['chat','media','apps','help'][next]; crumbsTab(nextName); crumbsElement(`crumbs-tab-${nextName}`).focus();
  });
 }
-const crumbsMoviePrompt = 'Help me pick a movie or TV show. Ask about my mood and who is watching before recommending a few options. You cannot see my Watch library or request history; help me use Movies & TV to check a title and confirm any request myself.';
+const crumbsMoviePrompt = 'Help me pick a movie or show. Ask about the mood and who is watching, then suggest a few. You cannot see the Watch library or past requests. If I want to request one, point me at Movies & TV so I can check the title and confirm it myself.';
 for(const id of ['crumbs-movie-ideas','crumbs-recommend']) crumbsElement(id).addEventListener('click',() => crumbsDraft(crumbsMoviePrompt));
-for(const id of ['crumbs-app-help','crumbs-help-chat']) crumbsElement(id).addEventListener('click',() => crumbsDraft('I need a little help using the Coop. Ask me which app I am using and what I am trying to do, then explain the next step in plain language.'));
+for(const id of ['crumbs-app-help','crumbs-help-chat']) crumbsElement(id).addEventListener('click',() => crumbsDraft('I need help with the Coop. Ask which app I am in and what I am trying to do, then tell me the next step in plain language.'));
 crumbsElement('crumbs-help-request-button').addEventListener('click',() => { crumbsTab('media'); crumbsElement('title-query').focus(); });
 crumbsElement('crumbs-app-search').addEventListener('input',crumbsFindApps);
 crumbsFindApps();
