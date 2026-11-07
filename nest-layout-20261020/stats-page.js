@@ -13,12 +13,12 @@ function displaySummary(data) {
  element('array-value').textContent = `${Math.round(data.array.percent)}%`; element('array-detail').textContent = capacityText(data.array); updateMeter('array-meter',data.array.percent);
  const days = Math.floor(data.uptimeSeconds/86400), hours = Math.floor(data.uptimeSeconds%86400/3600); element('uptime-value').textContent = `${days}d ${hours}h`;
  const disks = data.disks.map(disk => { const item = document.createElement('p'); item.textContent = `${disk.label} · ${Math.round(disk.percent)}%`; const detail = document.createElement('strong'); detail.textContent = capacityText(disk); item.append(detail); return item; });
- element('disk-values').replaceChildren(...disks); element('stats-status').textContent = `Live · updated ${new Date(data.updatedUnix*1000).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
+ element('disk-values').replaceChildren(...disks); element('stats-status').textContent = `Updated ${new Date(data.updatedUnix*1000).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
 }
 /** @returns {Promise<void>} */
 async function refreshStats() {
  try { displaySummary(await fetchSummary()); }
- catch(error) { element('stats-status').textContent = 'Stats unavailable'; for(const id of ['cpu','memory','array','uptime']) element(`${id}-value`).textContent = '—'; for(const id of ['cpu','memory','array']) element(`${id}-meter`).hidden = true; element('memory-detail').textContent = 'No current memory measurement.'; element('array-detail').textContent = 'No current storage measurement.'; element('disk-values').textContent = 'Live stats could not be loaded. Ask Matt to check the stats collector.'; console.error('Dashboard stats unavailable',{error}); }
+ catch(error) { element('stats-status').textContent = 'Stats aren\'t loading'; for(const id of ['cpu','memory','array','uptime']) element(`${id}-value`).textContent = '—'; for(const id of ['cpu','memory','array']) element(`${id}-meter`).hidden = true; element('memory-detail').textContent = 'No memory reading.'; element('array-detail').textContent = 'No storage reading.'; element('disk-values').textContent = 'Couldn\'t load stats. Ask Matt to check the collector.'; console.error('Dashboard stats unavailable',{error}); }
  setTimeout(refreshStats,15000);
 }
 refreshStats();

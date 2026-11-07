@@ -4,14 +4,14 @@
 function createCard(app) {
  /** @type {Record<string,{name:string,title:string,description:string,action:string}>} */
  const labels = {
-  watch:{name:'WATCH',title:'Watch movies & TV',description:'Kick back and enjoy the flock’s collection.',action:'Start watching'},
-  request:{name:'REQUEST',title:'Request something',description:'Can’t find a movie or show? Send a request and Crumbs will track it down.',action:'Make a request'},
-  listen:{name:'AUDIOBOOKS',title:'Listen to a book',description:'Great stories for road trips, chill time, or chore time.',action:'Open the bookshelf'},
-  photos:{name:'PHOTOS',title:'Keep your memories',description:'Your photos, your flock. A place for all 400 identical pigeon selfies.',action:'Open your photo library'}
+  watch:{name:'WATCH',title:'Movies and TV',description:'The family library. Includes the one you fell asleep during.',action:'Start watching'},
+  request:{name:'REQUESTS',title:'Request a title',description:"If it isn't in the library yet, ask for it here.",action:'Make a request'},
+  listen:{name:'AUDIOBOOKS',title:'Audiobooks',description:'For the car, or for doing the dishes.',action:'Open books'},
+  photos:{name:'PHOTOS',title:'Photos',description:'Family pictures. Yes, the 400 nearly identical ones too.',action:'Open photos'}
  };
  const display = {...app,...labels[app.id]};
  const card = document.createElement('a'); card.id = `${app.id}-card`; card.className = 'card'; card.href = app.url;
- card.dataset.search = `${app.name} ${app.title} ${app.description}`.toLowerCase();
+ card.dataset.search = `${app.name} ${display.name} ${app.title} ${display.title} ${app.description} ${display.description}`.toLowerCase();
  const top = document.createElement('div'); top.className = 'card-top';
  const glyph = document.createElement('span'); glyph.className = 'glyph'; glyph.textContent = app.glyph; glyph.setAttribute('aria-hidden','true'); top.append(glyph);
  if(app.access) { const badge = document.createElement('span'); badge.className = 'badge'; badge.textContent = app.access; top.append(badge); }

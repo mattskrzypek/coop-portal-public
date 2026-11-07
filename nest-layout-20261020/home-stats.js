@@ -16,13 +16,13 @@ function displaySummary(data) {
  element('home-memory').title = capacityText(data.memory); element('home-array').title = capacityText(data.array);
  const days = Math.floor(data.uptimeSeconds/86400), hours = Math.floor(data.uptimeSeconds%86400/3600);
  element('home-uptime').textContent = `${days}d ${hours}h`;
- element('home-stats-status').textContent = `Live · updated ${new Date(data.updatedUnix*1000).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})}`;
+ element('home-stats-status').textContent = `Updated ${new Date(data.updatedUnix*1000).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})}`;
 }
 /** @returns {Promise<void>} */
 async function refreshStats() {
  try { displaySummary(await fetchSummary()); }
  catch(error) {
-  element('home-stats-status').textContent = 'Live stats unavailable. Ask Matt to check the server readings.';
+  element('home-stats-status').textContent = 'Can\'t get the numbers. Ask Matt.';
   for(const id of ['cpu','memory','array','uptime']) { const reading = element(`home-${id}`); reading.textContent = '—'; reading.removeAttribute('title'); }
   for(const id of ['cpu','memory','array']) element(`home-${id}-meter`).hidden = true;
   console.error('Welcome stats unavailable',{error});

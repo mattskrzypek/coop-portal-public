@@ -2,25 +2,25 @@
 /** @typedef {{id:string,group:string,name:string,title:string,description:string,url:string,action:string,glyph:string,access:string}} App */
 /** @type {App[]} */
 const apps = [
- {id:"coopadmin",group:"admin",name:"COOP ADMIN",title:"Manage household access",description:"Invite family and manage app access from either computer. Owner sign-in and Tailscale required.",url:"https://admin.fatpigeon.ca/",action:"Open Coop Admin",glyph:"♙",access:"TAILSCALE · OWNER"},
- {id:'watch',group:'household',name:'JELLYFIN',title:'Watch something',description:'Movies, shows, and the one you slept through. Crumbs won’t judge. Much.',url:'https://watch.fatpigeon.ca/',action:'Start watching',glyph:'▣',access:''},
- {id:'request',group:'household',name:'SEERR',title:'Request something',description:'Send the scouts for a movie or show. Delivery by pigeon is not guaranteed.',url:'https://requests.fatpigeon.ca/',action:'Find a movie or show',glyph:'▤',access:''},
- {id:'listen',group:'household',name:'AUDIOBOOKSHELF',title:'Listen to a book',description:'Story time for your bird brain. Give your eyes a well-earned perch break.',url:'https://listen.fatpigeon.ca/',action:'Open the bookshelf',glyph:'♫',access:''},
- {id:'photos',group:'household',name:'IMMICH',title:'Keep your memories',description:'Your photos, your flock. Finally, somewhere for all 400 identical pigeon selfies.',url:'https://photos.fatpigeon.ca/',action:'Open your photo library',glyph:'▧',access:''},
- {id:'homing',group:'tool',name:'HOMINGPIGEON',title:'Inspect an email',description:'Follow an email’s migration trail. Header analysis stays in your browser.',url:'https://homing.fatpigeon.ca/',action:'Open the mailroom',glyph:'✉',access:''},
- {id:'crackers',group:'tool',name:'CRACKERS',title:'Visit the FPV workbench',description:'Parts, builds and a completely reasonable number of propellers. Allegedly.',url:'http://crackers.fatpigeon.ca:3005/',action:'Open the workbench',glyph:'✚',access:'HOME / TAILSCALE'},
- {id:'website',group:'tool',name:'SKRZYPEK.CA',title:'Meet the human',description:'The responsible adult behind this suspiciously feather-heavy operation.',url:'https://skrzypek.ca/',action:'Visit Matt’s website',glyph:'⌂',access:''},
- {id:'unraid',group:'admin',name:'UNRAID',title:'Run the coop',description:'Disks, apps and big red buttons. Keep your beak off anything you don’t recognise.',url:'https://192-168-2-123.200da67cf4d9bbf557bc7b6c1c5df370db72ca46.myunraid.net/',action:'Open server controls',glyph:'▥',access:'PRIVATE'},
- {id:'identity',group:'admin',name:'AUTHENTIK',title:'Manage the flock',description:'People, accounts and access. Bread-based authentication remains unsupported.',url:'https://auth.fatpigeon.ca/if/admin/',action:'Open identity admin',glyph:'♙',access:'PRIVATE'},
- {id:'sonarr',group:'admin',name:'SONARR',title:'Organise your shows',description:'Episode patrol. Someone has to know where season two flew off to.',url:'http://pigeoncoop.lan:8989/',action:'Open Sonarr',glyph:'▣',access:'PRIVATE'},
- {id:'radarr',group:'admin',name:'RADARR',title:'Organise your movies',description:'The movie lookout. Questionable taste in pigeon documentaries.',url:'http://pigeoncoop.lan:7878/',action:'Open Radarr',glyph:'▧',access:'PRIVATE'},
- {id:'prowlarr',group:'admin',name:'PROWLARR',title:'Coordinate the scouts',description:'Manage the search flock. A masterclass in coo-ordination.',url:'http://pigeoncoop.lan:9696/',action:'Open Prowlarr',glyph:'⌕',access:'PRIVATE'},
- {id:'downloads',group:'admin',name:'QBITTORRENT',title:'Check deliveries',description:'The delivery perch. Existing download holds stay exactly where you left them.',url:'http://pigeoncoop.lan:8080/',action:'Open downloads',glyph:'⇣',access:'PRIVATE'},
- {id:'cleanup',group:'admin',name:'CLEANUPARR',title:'Keep the nest tidy',description:'A little housekeeping for the download queue. Even pigeons have standards.',url:'http://pigeoncoop.lan:11011/',action:'Open Cleanuparr',glyph:'✦',access:'PRIVATE'},
- {id:'uptime',group:'admin',name:'UPTIME KUMA',title:'Is everything still cooing?',description:'Service checks, certificate reminders and a heads-up when a perch falls over.',url:'http://pigeoncoop.lan:3006/',action:'Open service monitoring',glyph:'♡',access:'PRIVATE'},
- {id:'beszel',group:'admin',name:'BESZEL',title:'Check wing performance',description:'CPU, memory and disk capacity. The silicon bird’s performance review.',url:'http://pigeoncoop.lan:8090/',action:'Open server monitoring',glyph:'▥',access:'PRIVATE'},
- {id:'scrutiny',group:'admin',name:'SCRUTINY',title:'Inspect the shiny disks',description:'Drive health and SMART history. Peck the dashboard, not the platters.',url:'https://admin.fatpigeon.ca:8085/',action:'Open disk health',glyph:'◎',access:'PRIVATE'},
- {id:'dozzle',group:'admin',name:'DOZZLE',title:'Read coop gossip',description:'Container logs with the dangerous buttons removed. Mostly useful squawking.',url:'https://admin.fatpigeon.ca:9999/',action:'Open read-only logs',glyph:'≡',access:'PRIVATE'},
+ {id:"coopadmin",group:"admin",name:"COOP ADMIN",title:"Household access",description:"Invite people and set which apps they can use. Owner login and Tailscale.",url:"https://admin.fatpigeon.ca/",action:"Open Coop Admin",glyph:"♙",access:"TAILSCALE · OWNER"},
+ {id:'watch',group:'household',name:'JELLYFIN',title:'Movies and TV',description:'The family library. Includes the one you fell asleep during.',url:'https://watch.fatpigeon.ca/',action:'Start watching',glyph:'▣',access:''},
+ {id:'request',group:'household',name:'SEERR',title:'Request a title',description:'If it isn\'t in the library yet, ask for it here.',url:'https://requests.fatpigeon.ca/',action:'Make a request',glyph:'▤',access:''},
+ {id:'listen',group:'household',name:'AUDIOBOOKSHELF',title:'Audiobooks',description:'For the car, or for doing the dishes.',url:'https://listen.fatpigeon.ca/',action:'Open books',glyph:'♫',access:''},
+ {id:'photos',group:'household',name:'IMMICH',title:'Photos',description:'Family pictures. Yes, the 400 nearly identical ones too.',url:'https://photos.fatpigeon.ca/',action:'Open photos',glyph:'▧',access:''},
+ {id:'homing',group:'tool',name:'HOMINGPIGEON',title:'Check an email',description:'Paste a header and see where the mail came from. Stays in your browser.',url:'https://homing.fatpigeon.ca/',action:'Open Homing Pigeon',glyph:'✉',access:''},
+ {id:'crackers',group:'tool',name:'CRACKERS',title:'FPV workbench',description:'Drone parts and builds. Home network or Tailscale.',url:'http://crackers.fatpigeon.ca:3005/',action:'Open Crackers',glyph:'✚',access:'HOME / TAILSCALE'},
+ {id:'website',group:'tool',name:'SKRZYPEK.CA',title:'Matt\'s site',description:'The regular website. Fewer pigeons.',url:'https://skrzypek.ca/',action:'Open skrzypek.ca',glyph:'⌂',access:''},
+ {id:'unraid',group:'admin',name:'UNRAID',title:'The server',description:'Disks, containers, and the buttons you shouldn\'t press.',url:'https://192-168-2-123.200da67cf4d9bbf557bc7b6c1c5df370db72ca46.myunraid.net/',action:'Open Unraid',glyph:'▥',access:'PRIVATE'},
+ {id:'identity',group:'admin',name:'AUTHENTIK',title:'Accounts',description:'Who can sign in, and to what.',url:'https://auth.fatpigeon.ca/if/admin/',action:'Open Authentik',glyph:'♙',access:'PRIVATE'},
+ {id:'sonarr',group:'admin',name:'SONARR',title:'TV shows',description:'What to download, and which episodes are missing.',url:'http://pigeoncoop.lan:8989/',action:'Open Sonarr',glyph:'▣',access:'PRIVATE'},
+ {id:'radarr',group:'admin',name:'RADARR',title:'Movies',description:'Same idea as Sonarr, for movies.',url:'http://pigeoncoop.lan:7878/',action:'Open Radarr',glyph:'▧',access:'PRIVATE'},
+ {id:'prowlarr',group:'admin',name:'PROWLARR',title:'Search indexes',description:'Where Sonarr and Radarr go looking for files.',url:'http://pigeoncoop.lan:9696/',action:'Open Prowlarr',glyph:'⌕',access:'PRIVATE'},
+ {id:'downloads',group:'admin',name:'QBITTORRENT',title:'Downloads',description:'The queue. Leave the paused ones alone.',url:'http://pigeoncoop.lan:8080/',action:'Open qBittorrent',glyph:'⇣',access:'PRIVATE'},
+ {id:'cleanup',group:'admin',name:'CLEANUPARR',title:'Queue cleanup',description:'Tidies up the download queue.',url:'http://pigeoncoop.lan:11011/',action:'Open Cleanuparr',glyph:'✦',access:'PRIVATE'},
+ {id:'uptime',group:'admin',name:'UPTIME KUMA',title:'Are things up?',description:'Checks the services and notices when one falls over.',url:'http://pigeoncoop.lan:3006/',action:'Open Uptime Kuma',glyph:'♡',access:'PRIVATE'},
+ {id:'beszel',group:'admin',name:'BESZEL',title:'Server graphs',description:'CPU, memory, and disk over time.',url:'http://pigeoncoop.lan:8090/',action:'Open Beszel',glyph:'▥',access:'PRIVATE'},
+ {id:'scrutiny',group:'admin',name:'SCRUTINY',title:'Drive health',description:'SMART data. Are the disks dying.',url:'https://admin.fatpigeon.ca:8085/',action:'Open Scrutiny',glyph:'◎',access:'PRIVATE'},
+ {id:'dozzle',group:'admin',name:'DOZZLE',title:'Container logs',description:'Read only. The dangerous buttons are gone.',url:'https://admin.fatpigeon.ca:9999/',action:'Open Dozzle',glyph:'≡',access:'PRIVATE'},
 ];
 /** @param {string} id @returns {HTMLElement} */
 function element(id) { const result = document.getElementById(id); if (!result) throw new Error(`Missing dashboard element: ${id}`); return result; }
@@ -51,9 +51,9 @@ search.addEventListener('input',() => {
  const householdHeading = element('services-title').parentElement;
  if(!householdHeading) throw new Error('Household app heading has no section wrapper');
  householdHeading.hidden = !apps.some(app => app.group === 'household' && !element(`${app.id}-card`).hidden);
- element('app-count').textContent = `${count} of ${apps.length} perches`; element('no-results').hidden = count !== 0;
+ element('app-count').textContent = `${count} of ${apps.length} apps`; element('no-results').hidden = count !== 0;
 });
-element('app-count').textContent = `${apps.length} perches`;
+element('app-count').textContent = `${apps.length} apps`;
 /** @typedef {{usedBytes:number,totalBytes:number,percent:number}} Capacity */
 /** @typedef {{label:string,usedBytes:number,totalBytes:number,percent:number}} Disk */
 /** @typedef {{schema:number,updatedUnix:number,cpuPercent:number,memory:Capacity,array:Capacity,uptimeSeconds:number,disks:Disk[]}} Summary */
@@ -79,7 +79,7 @@ function displaySummary(data) {
  element('array-value').textContent = `${Math.round(data.array.percent)}%`; element('array-detail').textContent = capacityText(data.array); updateMeter('array-meter',data.array.percent);
  const days = Math.floor(data.uptimeSeconds/86400), hours = Math.floor(data.uptimeSeconds%86400/3600); element('uptime-value').textContent = `${days}d ${hours}h`;
  const disks = data.disks.map(disk => { const item = document.createElement('p'); item.textContent = `${disk.label} · ${Math.round(disk.percent)}%`; const detail = document.createElement('strong'); detail.textContent = capacityText(disk); item.append(detail); return item; });
- element('disk-values').replaceChildren(...disks); element('stats-status').textContent = `Live · updated ${new Date(data.updatedUnix*1000).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
+ element('disk-values').replaceChildren(...disks); element('stats-status').textContent = `Updated ${new Date(data.updatedUnix*1000).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
 }
 /** @returns {Promise<Summary>} */
 async function fetchSummary() {
@@ -92,7 +92,7 @@ async function fetchSummary() {
 /** @returns {Promise<void>} */
 async function refreshStats() {
  try { displaySummary(await fetchSummary()); }
- catch(error) { element('stats-status').textContent = 'Stats unavailable'; for(const id of ['cpu','memory','array','uptime']) element(`${id}-value`).textContent = '—'; for(const id of ['cpu','memory','array']) element(`${id}-meter`).hidden = true; element('memory-detail').textContent = 'No current memory measurement.'; element('array-detail').textContent = 'No current storage measurement.'; element('disk-values').textContent = 'Live stats could not be loaded. Ask Matt to check the stats collector.'; console.error('Dashboard stats unavailable',{error}); }
+ catch(error) { element('stats-status').textContent = 'Stats aren\'t loading'; for(const id of ['cpu','memory','array','uptime']) element(`${id}-value`).textContent = '—'; for(const id of ['cpu','memory','array']) element(`${id}-meter`).hidden = true; element('memory-detail').textContent = 'No memory reading.'; element('array-detail').textContent = 'No storage reading.'; element('disk-values').textContent = 'Couldn\'t load stats. Ask Matt to check the collector.'; console.error('Dashboard stats unavailable',{error}); }
  setTimeout(refreshStats,15000);
 }
 refreshStats();
