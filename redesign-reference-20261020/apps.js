@@ -10,7 +10,7 @@ const apps = [
  {id:'crackers',group:'tool',name:'CRACKERS',title:'FPV workbench',description:'Drone parts and builds. Home network or Tailscale.',url:'http://crackers.fatpigeon.ca:3005/',action:'Open Crackers',glyph:'✚',access:'HOME / TAILSCALE'},
  {id:'website',group:'tool',name:'SKRZYPEK.CA',title:"Matt's site",description:'The regular website. Fewer pigeons.',url:'https://skrzypek.ca/',action:'Open skrzypek.ca',glyph:'⌂',access:''},
  {id:'unraid',group:'admin',name:'UNRAID',title:'The server',description:"Disks, containers, and the buttons you shouldn't press.",url:'https://192-168-2-123.200da67cf4d9bbf557bc7b6c1c5df370db72ca46.myunraid.net/',action:'Open Unraid',glyph:'▥',access:'PRIVATE'},
- {id:'identity',group:'admin',name:'AUTHENTIK',title:'Accounts',description:'Who can sign in, and to what.',url:'http://pigeoncoop.lan:9000/if/admin/',action:'Open Authentik',glyph:'♙',access:'PRIVATE'},
+ {id:'identity',group:'admin',name:'AUTHENTIK',title:'Accounts',description:'Who can sign in, and to what.',url:'https://auth.fatpigeon.ca/if/admin/',action:'Open Authentik',glyph:'♙',access:'PRIVATE'},
  {id:'sonarr',group:'admin',name:'SONARR',title:'TV shows',description:'What to download, and which episodes are missing.',url:'http://pigeoncoop.lan:8989/',action:'Open Sonarr',glyph:'▣',access:'PRIVATE'},
  {id:'radarr',group:'admin',name:'RADARR',title:'Movies',description:'Same idea as Sonarr, for movies.',url:'http://pigeoncoop.lan:7878/',action:'Open Radarr',glyph:'▧',access:'PRIVATE'},
  {id:'prowlarr',group:'admin',name:'PROWLARR',title:'Search indexes',description:'Where Sonarr and Radarr go looking for files.',url:'http://pigeoncoop.lan:9696/',action:'Open Prowlarr',glyph:'⌕',access:'PRIVATE'},
