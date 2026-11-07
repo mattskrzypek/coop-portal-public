@@ -153,8 +153,8 @@ body:not([data-page=home]) .card:nth-child(even):before{transform:scaleX(-1) rot
 body[data-page=apps] #tool-cards .card h3,body[data-page=admin] .card h3,body[data-page=flock] .card h2{max-width:100%}
 body[data-page=apps] #tool-cards{grid-template-columns:repeat(12,minmax(0,1fr))}
 body[data-page=flock] .card p,body[data-page=admin] .card p{max-width:90%}
-body[data-page=watch] #open-watch:after{background-image:url('/redesign-reference-20261020/art/watch.svg')}
-body[data-page=watch] .card:nth-child(2):after{background-image:url('/redesign-reference-20261020/art/request.svg')}
+body[data-page=watch] #open-watch:after{background-image:url('/redesign-reference-20261020/art/watch.png')}
+body[data-page=watch] .card:nth-child(2):after{background-image:url('/redesign-reference-20261020/art/request.png')}
 .help{position:relative;border:0;padding:35px 12px 15px;margin-top:45px}.help:before{content:'';position:absolute;left:0;right:0;top:-12px;height:32px;background:url('perch-branch.svg?v=natural-1') center/100% 100% no-repeat;transform:rotate(1deg);pointer-events:none;opacity:.7}
 body[data-page=apps] #services>.section-label,body[data-page=apps] #family-tools>.section-label{padding-left:12px}
 body[data-page=apps] .search-label,body[data-page=apps] #app-count{margin-left:12px}

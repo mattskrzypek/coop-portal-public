@@ -73,9 +73,9 @@ Empty meter placeholders are still an em dash (`—`). That is a blank value, no
 | Little tools, settings and extras to keep things running smoothly. | The extras that don't fit in the four above. |
 | Open family tools | Open them |
 
-Family portrait alt: "Six pixel pigeons on a branch. One has a book, one has goggles and a tiny quad, one a long scarf, one a cap, one a bass, one a mic."
+Family portrait alt is back to the original sentence, because the original drawing is back: "Pigeon family portrait: Matt's wife reading, Matt with his FPV controller, Mom and Dad, and Matt's brother on double bass with his wife singing."
 
-Crumbs picture alt: "Pixel pigeon with a bow tie and a tray of crumbs." The old file lived at `/crumbs/crumbs.png`, which is not in this repo, so the page now uses a local sprite.
+Crumbs picture alt is back too: "Crumbs the pigeon butler, wearing a lime bow tie and carrying a tray of crumbs." The file is still `/crumbs/crumbs.png`, which is not in this repo.
 
 ### Chat and request text (shown on Home)
 
@@ -209,27 +209,17 @@ Start watching, Open Watch, and Make a request stayed.
 
 ## Images
 
-The glossy scenes were generated illustrations (smooth lighting, detailed sets, identical pigeon faces). They are in `retired-images/` under the same relative path, so they can be compared. Nothing in the pages points at that folder.
+The new wording stayed. The pictures did not.
 
-Replaced with small SVG pixel sprites. Palette is charcoal, cream, teal, and amber. Rough on purpose.
+A first pass swapped the illustrations for small pixel pigeons. Those were too simple. The original PNGs are back in the same paths, and the pages point at them again. The pixel SVGs are in `placeholder-art/`. Nothing on the site loads that folder.
 
-| Was | Now | Why |
-| --- | --- | --- |
-| `nest-layout-20261020/pigeon-family-six-v2.png` | `pigeon-family.svg` | Home portrait. Six pigeons with a book, goggles, scarf, cap, bass, and a mic. |
-| `/crumbs/crumbs.png` (not in this repo) | `redesign-chat-media-20261020/art/crumbs-welcome.svg` | The butler with the tray. Local sprite so the home chat does not depend on that file. |
-| `command-coop-duel.png` | `command-coop.svg` | The Magic scene on the Command Coop card. Two pigeons and three cards. |
-| `art/watch.png` (both live art folders) | `art/watch.svg` | Couch-and-popcorn scene. Pigeon, popcorn, tiny TV. |
-| `art/request.png` | `art/request.svg` | Flying pigeon with a wax-sealed letter. Pigeon and an envelope. |
-| `art/listen.png` | `art/listen.svg` | Headphones, books. |
-| `art/photos.png` | `art/photos.svg` | Camera and a print. |
-| `art/tools.png` | `art/tools.svg` | Wrench and a box. Used on the tools card and some page headings. |
-| `art/hero.png`, `art/crumbs.png` | matching `.svg` | Same set, referenced by CSS for the old hero and the Requests ask box. Not on the six current pages, but the CSS still loaded them. |
+`ARTIST-BRIEF.md` is a Fiverr brief for redrawing the same scenes by hand.
 
-`pigeon-surfer.png` and `command-coop-icon.png` already look like the small pixel style. They are not used by the current pages, so they stayed.
+`pigeon-surfer.png` and `command-coop-icon.png` are still unused, and still where they were.
 
 `pigeon-family-six-v1.png` is an unused earlier version of the portrait. It stayed in `nest-layout-20261020/`.
 
-The wooden branch and trunk SVGs stayed. They already look drawn, and they are the layout, not a marketing illustration.
+The wooden branch and trunk SVGs stayed. They already look drawn, and they are the layout.
 
 The little unicode marks on the cards (play, mail, and so on) stayed so the tools without a picture are still recognizable.
 
@@ -237,8 +227,8 @@ The little unicode marks on the cards (play, mail, and so on) stayed so the tool
 
 - Every link, app id, and URL.
 - `requests.js` and the Requests pages inside the folders. Those are not the six nav pages. The request flow on Home (`chat-media.js`) was rewritten.
-- Preview HTML in `nest-layout-20261020/` (`home.html`, `preview.html`, and the others) and `redesign-chat-media-20261020/index.html`. Image paths were updated so they do not point at moved files. Their old headings are still the previous copy. The site people open is the HTML at the repo root.
-- Layout CSS, aside from the image filenames. Cards were already flat. The branch layout stayed.
+- Preview HTML in `nest-layout-20261020/` (`home.html`, `preview.html`, and the others) and `redesign-chat-media-20261020/index.html`. Image paths point at the original PNGs again. Their old headings are still the previous copy. The site people open is the HTML at the repo root.
+- Layout CSS. Image filenames point at the original PNGs again. Cards were already flat. The branch layout stayed.
 - Superseded folders (`redesign-20261020/`, `redesign-crumbs-20261020/`, `crumbs-preview/`).
 - `stats/` was not touched.
 
