@@ -5,6 +5,7 @@ const apps = [
  {id:'listen',group:'household',name:'AUDIOBOOKSHELF',title:'Audiobooks',description:'For the car, or for doing the dishes.',url:'https://listen.fatpigeon.ca/',action:'Open books',glyph:'♫',access:''},
  {id:'photos',group:'household',name:'IMMICH',title:'Photos',description:'Family pictures. Yes, the 400 nearly identical ones too.',url:'https://photos.fatpigeon.ca/',action:'Open photos',glyph:'▧',access:''},
  {id:'command-coop',group:'tool',name:'THE COMMAND COOP',title:'The Command Coop',description:'Magic life counter. Tracks life, commander damage, and wins. Works offline.',url:'https://mtg.fatpigeon.ca/',action:'Open it',glyph:'⚄',access:''},
+ {id:'pigeoncards',group:'tool',name:'PIGEONCARDS',title:'PigeonCards',description:'Card tools for Commander night.',url:'https://cards.fatpigeon.ca/',action:'Open PigeonCards',glyph:'♠',access:''},
  {id:'homing',group:'tool',name:'HOMINGPIGEON',title:'Check an email',description:'Paste a header and see where the mail came from. Stays in your browser.',url:'https://homing.fatpigeon.ca/',action:'Open Homing Pigeon',glyph:'✉',access:''},
  {id:'crackers',group:'tool',name:'CRACKERS',title:'FPV workbench',description:'Drone parts and builds. Home network or Tailscale.',url:'http://crackers.fatpigeon.ca:3005/',action:'Open Crackers',glyph:'✚',access:'HOME / TAILSCALE'},
  {id:'website',group:'tool',name:'SKRZYPEK.CA',title:"Matt's site",description:'The regular website. Fewer pigeons.',url:'https://skrzypek.ca/',action:'Open skrzypek.ca',glyph:'⌂',access:''},

@@ -126,6 +126,8 @@ Status words that are just facts stayed: Not requested, Waiting for approval, On
 | Crackers | Visit the FPV workbench. Parts, builds and a completely reasonable number of propellers. Allegedly. | FPV workbench. Drone parts and builds. Home network or Tailscale. Open Crackers |
 | skrzypek.ca | Meet the human. The responsible adult behind this suspiciously feather-heavy operation. | Matt's site. The regular website. Fewer pigeons. Open skrzypek.ca |
 
+PigeonCards is an extra tool tile from production, not a rewrite of an old line. It sits with the other tools. Title: PigeonCards. Description: Card tools for Commander night. Link: https://cards.fatpigeon.ca/. The six nav pages load `apps.js?v=pigeoncards-20261107`. That is newer than production's `pigeoncards-20261102` because this copy of the file also has the rewritten card text, and browsers may already have the old file cached under the November 2 query.
+
 Product names on the small tags (Jellyfin, Seerr, and so on) still exist in the data. The cards people see say WATCH, REQUESTS, AUDIOBOOKS, PHOTOS.
 
 ## Admin
